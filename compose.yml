@@ -1,0 +1,22 @@
+name: confix
+services:
+  confix:
+    image: alpine:latest
+    container_name: confix
+    restart: "no"
+    # stdin_open: true                      # Keeps stdin open so you can interact with the shell
+    # tty: true                             # Allocates a pseudo-TTY for an interactive session
+    volumes:
+      - config_volume:/volume_dir           # Named volume (persistent)
+      - ./config.ini:/tmp/config.ini:ro       # Bind mount from host (read-only)
+    
+    command: ["/bin/sh", "-c", "cp -f /tmp/config.ini /volume_dir/config.ini"] 
+
+volumes:
+  config_volume:
+    external: true  
+
+
+
+
+
